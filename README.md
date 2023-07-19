@@ -1,4 +1,4 @@
-[# jelly-say-discord-bot
+# sakami-say-bot
 
 ![CI Badge](https://github.com/rassi0429/sakami-say-bot/actions/workflows/docker-build-release.yaml/badge.svg)
 ![License MIT](https://img.shields.io/github/license/rassi0429/sakami-say-bot)
