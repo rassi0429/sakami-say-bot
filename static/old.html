@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="/font.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 style="font-family: 'Noto Sans JP';">あいうえお</h1>
+    <div>
+        <canvas id="canvas" width="1920" height="1080" style="width:500px"></canvas>
+    </div>
+    <div>
+        <input type="text" id="text-input" />
+        <button onclick="draw()">JELLYさんにしゃべらせる</button>
+    </div>
+    <style>
+        input {
+            width: 200px;
+            height: 40px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 30px;
+        }
+        button {
+            height: 45px;
+            border-radius: 10px;
+            width: 100px;
+            background-color: #258a1a;
+            color: #fff;
+            border-color: #54e244;
+        }
+    </style>
+    <script>
+        const canvas = document.getElementById("canvas")
+        const ctx = canvas.getContext("2d")
+
+        const jelly = new Image()
+        jelly.src = "/img/1.jpg"
+        jelly.onload = () => {
+            const text = document.getElementById("text-input").value
+            ctx.drawImage(jelly, 0, 0)
+            ctx.strokeText(text, 0, 0)
+        }
+
+        function draw() {
+            const text = document.getElementById("text-input").value
+            ctx.drawImage(jelly, 0, 0)
+            ctx.textAlign = "center"
+            ctx.fill = "black"
+            ctx.font = "135px 'Noto Sans JP'";
+            ctx.fillText(text, 960, 840)
+        }
+    </script>
+</body>
+
+</html>

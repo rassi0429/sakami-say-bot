@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./font.css" rel="stylesheet">
+    <title>じぇりーさんにしゃべらせるやつv1</title>
+
+    <meta property="og:url" content="https://kusokora.kokoa.dev/index.html" />
+    <meta property="og:title" content=" じぇりーさんにしゃべらせるやつ" />
+    <meta property="og:description" content=" じぇりーさんにしゃべらせるやつ" />
+    <meta property="og:site_name" content="じぇりーさんにしゃべらせるやつ" />
+    <meta property="og:image" content=" https://kusokora.kokoa.dev/img/ogp.png" />
+</head>
+
+<body style="margin:0; padding:0; width: 1280px; height: 720px;">
+    <script src="./js/glfx.js"></script>
+    <canvas id="unchi" width="1920" height="1080" style="display:none"></canvas>
+    <canvas id="result-canvas" width="1920" height="1080" style="width:1280px; height:720px; margin:0; padding:0"></canvas>
+
+    <p style="font-size:0px; font-family: 'Noto Sans JP';" id="pre-load-text"></p>
+
+    <script>
+        const searchParams = new URLSearchParams(window.location.search)
+        document.getElementById("pre-load-text").value = searchParams.get('text')
+        const render = function () {
+            const backboard = document.getElementById("unchi")
+            const ctx = backboard.getContext("2d");
+            ctx.clearRect(0, 0, backboard.width, backboard.height);
+            ctx.textAlign = "center"
+            ctx.fill = "black"
+
+            var fontSize = 130; // 初期のフォントサイズ
+            var maxWidth = 1900; // テキストの最大幅（キャンバスの幅から余白を引く）
+            do {
+                fontSize--; // フォントサイズを1ずつ減らしていく
+                ctx.font = fontSize + "px 'Noto Sans JP";
+            } while (ctx.measureText(searchParams.get('text')).width > maxWidth);
+
+           //  ctx.font = "135px 'Noto Sans JP'";
+            // 白の縁取り
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 10;
+
+            const x = (1920) / 2; // テキストを中央揃えにするためのX座標を計算
+            ctx.strokeText(searchParams.get('text'), x, 1080 - 50);
+            ctx.fillText(searchParams.get('text'), x, 1080 - 50)
+
+            var canvas = fx.canvas();
+            var texture = canvas.texture(backboard);
+            canvas.draw(texture).update()
+
+            const dataurl = canvas.toDataURL('image/png');
+
+            const result = document.getElementById("result-canvas")
+            const ctx2 = result.getContext("2d");
+
+            const chara2 = new Image();
+            chara2.src = "./img/base.jpg";  // 画像のURLを指定
+            chara2.onload = () => {
+                ctx2.drawImage(chara2, 0, 0);
+                const img = new Image()
+                img.src = dataurl
+                img.onload = () => {
+                    ctx2.drawImage(img, 0, 0);
+                }
+            }
+        };
+
+        // window.onload = render
+        setTimeout(() => {
+            render()
+            setTimeout(() => {
+                render()
+            },1000)
+        }, 800);
+
+    </script>
+</body>
+
+</html>

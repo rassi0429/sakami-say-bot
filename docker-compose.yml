@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  node:
+    build: .
+    init: true
+    restart: always
+    volumes:
+      - ./img:/app/img
+    ports:
+      - "127.0.0.1:5005:3000"
+    environment: 
+      - TOKEN=
