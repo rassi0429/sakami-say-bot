@@ -13,14 +13,6 @@
 
 helmのvaluesも同じ名前になっています。
 
-## refresh tokenの取り方
-
-```bash
-npm run auth
-```
-でRefresh tokenを取得してください。
-CLIENT_IDとCLIENT_SECRETをつけて起動してください。
-
 | 環境変数名 | 説明            |
 |-------|---------------|
 | TOKEN | misskey token |
