@@ -56,6 +56,8 @@ client.on("connect", (connection) => {
 
     connection.on("close", () => {
         console.log("close")
+        // reconnect
+         client.connect(WS_URL);
     })
 })
 
